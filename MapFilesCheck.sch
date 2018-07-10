@@ -19,32 +19,32 @@
         <!-- Change the attribute to point the element being the context of the assert expression. -->
         <sch:rule context="//gmi:MI_Metadata/gmd:dataSetURI[1]/gco:CharacterString">
             <!-- Change the assert expression. -->
-            <sch:assert test="starts-with(.,'ftp:')">The URL must contain 'ftp' </sch:assert>
+            <sch:assert test="starts-with(.,'https:')">The URL must contain 'https'</sch:assert>
         </sch:rule>
     </sch:pattern>
-    
-    
-    <sch:pattern>
-        <sch:rule context="/gmi:MI_Metadata/gmd:distributionInfo[1]/gmd:MD_Distribution[1]/gmd:transferOptions[1]/gmd:MD_DigitalTransferOptions[1]/gmd:onLine[1]/gmd:CI_OnlineResource[1]">
-            <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'.zip')">
-                The download file should contain '.zip'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            </sch:assert>
-            <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'ftp')">
-                The download file should contain 'ftp'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            </sch:assert>
-            <!--   <sch:assert test="contains(./gmd:name[1]/gco:CharacterString[1],'Shapefile')">
+
+
+<sch:pattern>
+    <sch:rule context="/gmi:MI_Metadata/gmd:distributionInfo[1]/gmd:MD_Distribution[1]/gmd:transferOptions[1]/gmd:MD_DigitalTransferOptions[1]/gmd:onLine[1]/gmd:CI_OnlineResource[1]">
+        <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'.pdf')">
+            The download file should contain '.pdf'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        </sch:assert>
+        <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'https')">
+            The download file should contain 'https'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        </sch:assert>
+        <!--   <sch:assert test="contains(./gmd:name[1]/gco:CharacterString[1],'Shapefile')">
                 The download file should contain 'https'
-                </sch:assert>-->
-        </sch:rule>
-    </sch:pattern>
+            </sch:assert>-->
+    </sch:rule>
+</sch:pattern>
     
-    <sch:pattern id="EACheck">
-        <sch:rule context="/gmi:MI_Metadata/gmd:contentInfo[1]/gmd:MD_FeatureCatalogueDescription[1]/gmd:featureCatalogueCitation[1]/gmd:CI_Citation[1]/gmd:otherCitationDetails[1]">
-            <sch:assert test="contains(normalize-space(./gco:CharacterString),'TIGER2017')"></sch:assert>
-        </sch:rule>
-    </sch:pattern>
-    
-    
-    
-    
+ <sch:pattern id="EACheck">
+     <sch:rule context="/gmi:MI_Metadata/gmd:contentInfo[1]/gmd:MD_FeatureCatalogueDescription[1]/gmd:featureCatalogueCitation[1]/gmd:CI_Citation[1]/gmd:otherCitationDetails[1]">
+         <sch:assert test="contains(normalize-space(./gco:CharacterString),'TIGER2017')"></sch:assert>
+     </sch:rule>
+ </sch:pattern>
+
+
+
+
 </sch:schema>
