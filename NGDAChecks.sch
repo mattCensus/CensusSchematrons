@@ -35,6 +35,23 @@
      </sch:rule>
     </sch:pattern>
     
+   <!--   <pattern>
+        <title>gco:Date</title>
+        <rule context="//gco:Date">
+            <report test="string-length(.) != 7">Date format must be YYYY-MM (7 characters) (date test)</report>      
+        </rule>
+    </pattern>  -->
+    
+    <sch:pattern id="metadataDateCheck">
+        <sch:rule context="/gmi:MI_Metadata/gmd:dateStamp">
+            <sch:let name="yearA" value="substring(./gco:Date,1,4)"/>
+            <sch:let name="yearb" value="substring(./gco:Date,1,2)"/>
+            <sch:assert test="$yearb = '2017'" >The year must be 2018. It is currently:    <sch:value-of select="$yearb"/>. Please correct it.</sch:assert>
+        </sch:rule>
+    </sch:pattern>
+    
+    
+    
     <sch:pattern id="altTitleCheck">
         <sch:rule context="/gmi:MI_Metadata/gmd:identificationInfo[1]/gmd:MD_DataIdentification[1]/gmd:citation[1]/gmd:CI_Citation[1]/gmd:alternateTitle[1]/gco:CharacterString[1]">
            <!--   <sch:let name="altTitle" value="."/>
@@ -49,7 +66,7 @@
     <!-- Checking the keywords  and type-->
     <!-- Making sure that there are 3 keywords -->
     <!-- This pattern works -->
-    <sch:pattern>
+    <sch:pattern id="NGDAKeywordsCheck">
         <sch:rule context="/gmi:MI_Metadata/gmd:identificationInfo[1]/gmd:MD_DataIdentification[1]/gmd:descriptiveKeywords[1]/gmd:MD_Keywords[1]">
             <sch:assert test="count(gmd:keyword)=3">There are supposed to be 3 keywords</sch:assert>
             <sch:assert test="count(gmd:type)=1">There is only supposed to be one type</sch:assert>
@@ -57,8 +74,16 @@
         </sch:rule>
     </sch:pattern>
     
+    <sch:pattern id="EAOtherCitation">
+        <sch:rule context="/gmi:MI_Metadata/gmd:contentInfo[1]/gmd:MD_FeatureCatalogueDescription[1]/gmd:featureCatalogueCitation[1]/gmd:CI_Citation[1]">
+            <sch:assert test="contains(./gmd:otherCitationDetails[1]/gco:CharacterString,'/TIGER2018')">Make sure the file is contains the "TIGER2018" directory</sch:assert>
+        </sch:rule>
+    </sch:pattern>
+    
+    
+    
     <!--Checking for the zip file    -->
-    <sch:pattern>
+    <sch:pattern id="zipCheck">
         <sch:rule context="/gmi:MI_Metadata/gmd:distributionInfo[1]/gmd:MD_Distribution[1]/gmd:transferOptions[1]/gmd:MD_DigitalTransferOptions[1]/gmd:onLine[1]/gmd:CI_OnlineResource[1]">
             <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'.zip')">
                 The download file should contain '.zip'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -75,12 +100,11 @@
             <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'https')">The TIGER shapefiles page is incorrect. It should be 'https://www.census.gov/geo/maps-data/data/tiger-line.html'</sch:assert>
             <sch:report test="contains(./gmd:name[1]/gco:CharacterString[1],'&#174;')">Remove the ® and replace it with &#174; !!!!!!!!</sch:report>
         </sch:rule>
-        
     </sch:pattern>
     
     <!-- Checking for both the WMS and REST URLS-->
     <!-- This pattern works -->
-    <sch:pattern>
+    <sch:pattern id="WMSandRestCheck">
         <sch:rule context="/gmi:MI_Metadata/gmd:distributionInfo[1]/gmd:MD_Distribution[1]">
             <sch:assert test="count(gmd:transferOptions[3])">The WMS URL is missing!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</sch:assert>
             <sch:assert test="count(gmd:transferOptions[4])">The REST URL is missing!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</sch:assert>
@@ -92,7 +116,7 @@
     <!-- Checking for WMS -->
     <!-- making sure that it exists -->
     <!-- This pattern works -->
-     <sch:pattern>
+     <sch:pattern id="WMSCheck">
         <sch:rule context="/gmi:MI_Metadata/gmd:distributionInfo[1]/gmd:MD_Distribution[1]/gmd:transferOptions[3]/gmd:MD_DigitalTransferOptions[1]/gmd:onLine[1]/gmd:CI_OnlineResource[1]">
             <sch:assert test="count(.)=1">The WMS URL is missing!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! </sch:assert>
             <!-- testing the linkage -->

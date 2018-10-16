@@ -26,6 +26,14 @@
     <!-- Assert: if the test is false, then the test and file fails -->
     <!-- Making sure the alternate title exists -->
     <!-- This pattern works -->
+    
+    <sch:pattern id="MetadataDateCheck">
+        <sch:rule context="/gmi:MI_Metadata/gmd:dateStamp">
+            <sch:let name="year" value="number(substring(./gco:Date,1,4))"/>
+            <sch:assert test="year gt 2018"> The date has to be greater than 2018. It is <sch:value-of select="$year"/></sch:assert>
+        </sch:rule>
+    </sch:pattern>
+    
     <sch:pattern id="altTitleCount">
      <sch:rule context="gmi:MI_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation">
          <sch:assert test="count(gmd:alternateTitle)=1">The alternate title is missing</sch:assert>
@@ -74,7 +82,7 @@
     
     <sch:pattern>
         <sch:rule context="/gmi:MI_Metadata/gmd:contentInfo[1]/gmd:MD_FeatureCatalogueDescription[1]/gmd:featureCatalogueCitation[1]/gmd:CI_Citation[1]/gmd:otherCitationDetails[1]">
-            <sch:assert test="matches(normalize-space(./gco:CharacterString),'TIGER2017')">Make sure the file is contains the "TIGER2017" directory</sch:assert>
+            <sch:assert test="contains(normalize-space(./gco:CharacterString),'TIGER2018')">Make sure the file is contains the "TIGER2018" directory</sch:assert>
         </sch:rule>
     </sch:pattern>
     

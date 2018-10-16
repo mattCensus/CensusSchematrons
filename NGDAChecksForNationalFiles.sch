@@ -17,6 +17,16 @@
         </sch:rule>
     </sch:pattern>
     
+    
+    <sch:pattern id="metadataDateCheck">
+        <sch:rule context="/gmi:MI_Metadata/gmd:dateStamp">
+            <sch:let name="yearA" value="substring(./gco:Date,1,4)"/>
+            <sch:let name="yearb" value="substring(./gco:Date,1,2)"/>
+            <sch:assert test="$yearA = '2017'" >The year must be 2018. It is currently:    <sch:value-of select="$yearA"/></sch:assert>
+        </sch:rule>
+    </sch:pattern>
+    
+    
    <!-- Checking the alternate title -->
     <!-- Assert: if the test is false, then the test and file fails -->
     <!-- Making sure the alternate title exists -->
