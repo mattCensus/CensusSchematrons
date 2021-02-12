@@ -58,13 +58,13 @@
     -->
     <sch:pattern id="ISO3166Check">
         <sch:rule context="/gmi:MI_Metadata/gmd:identificationInfo[1]/gmd:MD_DataIdentification[1]/gmd:descriptiveKeywords[2]/gmd:MD_Keywords[1]">
-           <!--  <sch:assert test="contains(./gmd:thesaurusName[1]/gmd:CI_Citation[1]/gmd:title[1]/gco:CharacterString[1],'3166')">
+            <!--  <sch:assert test="contains(./gmd:thesaurusName[1]/gmd:CI_Citation[1]/gmd:title[1]/gco:CharacterString[1],'3166')">
                 The value for the thesauraus should be 'ISO 3166 Codes for the representation of names of countries and their subdivisions'
                 </sch:assert> 
                 <sch:assert test="starts-with(./gmd:thesaurusName[1]/gmd:CI_Citation[1]/gmd:title[1]/gco:CharacterString[1],'ISO')"></sch:assert>-->
             <sch:let name="PlaceThes" value="string-length(.)"/>
             <sch:assert test="matches(normalize-space(.),'38-2009')">ISO_RegStates.sch err#8B: The value for the thesauraus should be 'National Standard Codes (ANSI INCITS 38-2009), Federal Information Processing Series (FIPS) – States/State Equivalents' </sch:assert>
-            <sch:assert test="$PlaceThes  &lt; 529">ISO_RegStates.sch err#9: Make Sure the value for the Place Thesaurus is correct <sch:value-of select="$PlaceThes"/></sch:assert>
+            <sch:assert test="$PlaceThes  &lt; 529">ISO_RegStates.sch err#9: Make Sure the value for the Place Thesaurus is correct. It has a length of <sch:value-of select="$PlaceThes"/>. It should be greater than 529 characters.</sch:assert>
         </sch:rule>
     </sch:pattern>
     
@@ -138,10 +138,10 @@
        <sch:rule context="/gmi:MI_Metadata/gmd:identificationInfo[1]/gmd:MD_DataIdentification[1]/gmd:extent[1]/gmd:EX_Extent[1]">
            <sch:assert test="count(./gmd:geographicElement)=1">ISO_RegStates.sch #28: The bounding coordinates are missing</sch:assert>
            <sch:assert test="count(./gmd:temporalElement)=1">ISO_RegStates.sch #29: The timeperiod is missing</sch:assert>
-           <sch:let name="beginYear" value="string(contains(./gmd:temporalElement[1]/gmd:EX_TemporalExtent[1]/gmd:extent[1]/gml:TimePeriod[1]/gml:beginPosition[1],'2019'))"/>
-           <sch:let name="endYear" value="string(contains(./gmd:temporalElement[1]/gmd:EX_TemporalExtent[1]/gmd:extent[1]/gml:TimePeriod[1]/gml:endPosition[1],'2020'))"/> 
-           <sch:assert test="$beginYear='true'">ISO_RegStates.sch #30: The beginning year must be '2019'</sch:assert>
-           <sch:assert test="$endYear='true'">ISO_ChecksForStates.sch #31: The ending year must be '2020'</sch:assert>
+           <sch:let name="beginYear" value="string(contains(./gmd:temporalElement[1]/gmd:EX_TemporalExtent[1]/gmd:extent[1]/gml:TimePeriod[1]/gml:beginPosition[1],'2009'))"/>
+           <sch:let name="endYear" value="string(contains(./gmd:temporalElement[1]/gmd:EX_TemporalExtent[1]/gmd:extent[1]/gml:TimePeriod[1]/gml:endPosition[1],'2010'))"/> 
+           <sch:assert test="$beginYear='true'">ISO_RegStates.sch #30: The beginning year must be '2009'</sch:assert>
+           <sch:assert test="$endYear='true'">ISO_ChecksForStates.sch #31: The ending year must be '2010'</sch:assert>
        </sch:rule>
    </sch:pattern>
    
@@ -183,10 +183,10 @@
     -->
     <sch:pattern id="datasourcecheck">
         <sch:rule context="/gmi:MI_Metadata/gmd:dataQualityInfo[1]/gmd:DQ_DataQuality[1]/gmd:lineage[1]/gmd:LI_Lineage[1]/gmd:source[1]/gmd:LI_Source[1]/gmd:sourceExtent[1]/gmd:EX_Extent[1]">
-            <sch:let name="beginYear" value="string(contains(./gmd:temporalElement[1]/gmd:EX_TemporalExtent[1]/gmd:extent[1]/gml:TimePeriod[1]/gml:beginPosition[1],'2019'))"/>
-            <sch:let name="endYear" value="string(contains(./gmd:temporalElement[1]/gmd:EX_TemporalExtent[1]/gmd:extent[1]/gml:TimePeriod[1]/gml:endPosition[1],'2020'))"/> 
-            <sch:assert test="$beginYear='true'">ISO_RegStates.sch #43: The beginning year must be '2019'</sch:assert>
-            <sch:assert test="$endYear='true'">ISO_RegStates.sch #44: The ending year must be '2020'</sch:assert>
+            <sch:let name="beginYear" value="string(contains(./gmd:temporalElement[1]/gmd:EX_TemporalExtent[1]/gmd:extent[1]/gml:TimePeriod[1]/gml:beginPosition[1],'2009'))"/>
+            <sch:let name="endYear" value="string(contains(./gmd:temporalElement[1]/gmd:EX_TemporalExtent[1]/gmd:extent[1]/gml:TimePeriod[1]/gml:endPosition[1],'2010'))"/> 
+            <sch:assert test="$beginYear='true'">ISO_RegStates.sch #43: The beginning year must be '2009'</sch:assert>
+            <sch:assert test="$endYear='true'">ISO_RegStates.sch #44: The ending year must be '2010'</sch:assert>
         </sch:rule>
     </sch:pattern>
     

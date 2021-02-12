@@ -13,7 +13,6 @@
     <sch:pattern id="charactersetCheck">
         <sch:rule context="/gmi:MI_Metadata/gmd:characterSet[1]/gmd:MD_CharacterSetCode[1]">
             <sch:assert test="contains(./@codeListValue,'UTF-8')">The codelist value must be equal to 'UTF-8'</sch:assert>
-            <sch:assert test="contains(./@codeSpace,'004')">The codespace value for gmd:MD_CharacterSetCode must be '004' </sch:assert>
         </sch:rule>
     </sch:pattern>
     

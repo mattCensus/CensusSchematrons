@@ -225,7 +225,7 @@
        </sch:rule>
    </sch:pattern>
    
-    <sch:pattern>
+    <sch:pattern id='boundingBox'>
         <sch:title>EX_GeographicBoundingBox</sch:title>
         <sch:rule context="//gmd:EX_GeographicBoundingBox">      
             <sch:assert test="not(gmd:westBoundLongitude/gco:Decimal &lt; -180)">ISO_ChecksForStates.sch #61: West Bounding Longitude must be -180 or greater</sch:assert>
@@ -242,7 +242,7 @@
         </sch:rule>
     </sch:pattern>
     
-    <sch:pattern>
+    <sch:pattern id='otherRestrictionInMD_LegalConstraints'>
         <sch:title>other restrictions in MD_LegalConstraints</sch:title>
         <sch:rule context="//gmd:MD_LegalConstraints">
             <sch:report test="gmd:accessConstraints/gmd:MD_RestrictionCode/@codeListValue='otherRestrictions' and not(gmd:otherConstraints)">ISO_ChecksForStates.sch #69: If gmd:accessConstraints has a gmd:MD_RestrictionCode with a value of 'otherRestrictions' then gmd: otherConstraints must be documented.</sch:report>
@@ -250,7 +250,7 @@
         </sch:rule>
     </sch:pattern>
     
-    <sch:pattern>
+    <sch:pattern id='distributionFormat'>
         <sch:title>gmd:MD_Distribution</sch:title>
         <sch:rule context="//gmd:MD_Distribution">
             <sch:assert test="count(gmd:distributionFormat)&gt;0 or count(gmd:distributor/gmd:MD_Distributor/gmd:distributorFormat)&gt;0">ISO_ChecksForStates.sch #71: You must provide either gmd:distributionFormat or gmd:distributorFormat.</sch:assert>
@@ -277,7 +277,7 @@
         </sch:rule>
     </sch:pattern>
    
-   <sch:pattern>
+   <sch:pattern id='hierarchyCheck'>
        <sch:rule context="/gmi:MI_Metadata/gmd:hierarchyLevel[1]/gmd:MD_ScopeCode[1]/@codeListValue">
            <sch:let name="hierlevel" value="."/>
            <sch:assert test=".='dataset'">ISO_ChecksForStates.sch #75: The hierarchy level must be 'dataset' </sch:assert>
@@ -285,7 +285,7 @@
        </sch:rule>
    </sch:pattern>
    
-    <sch:pattern>
+    <sch:pattern id='datasetBoundingBoxCheck'>
         <sch:title>gmd:MD_DataIdentification Extent</sch:title>
         <sch:rule context="//gmd:MD_DataIdentification">
             <sch:report test="(not(gmd:hierarchyLevel) or gmd:hierarchyLevel/gmd:MD_ScopeCode/@codeListValue='dataset') and (count(//gmd:MD_DataIdentification/gmd:extent/*/gmd:geographicElement/gmd:EX_GeographicBoundingBox) + count (//gmd:MD_DataIdentification/gmd:extent/*/gmd:geographicElement/gmd:EX_GeographicDescription)) =0">
@@ -295,7 +295,7 @@
      
     <!-- /gmi:MI_Metadata/gmd:dataSetURI[1]/gco:CharacterString[1] -->
    
-   <sch:pattern>
+   <sch:pattern id='datasethttpsCheck'>
        <sch:rule context="/gmi:MI_Metadata/gmd:dataSetURI[1]">
            <sch:assert  test="contains(.,'https')">ISO_ChecksForStates.sch #77: The URL should contain 'https'</sch:assert>
        </sch:rule>
