@@ -35,8 +35,8 @@
         <!-- Change the attribute to point the element being the context of the assert expression. -->
         <sch:rule context="/gmi:MI_Metadata/gmd:dateStamp[1]/gco:Date[1]">
             <!-- Change the assert expression. -->
-            <sch:assert test="contains(.,'2020')">ISO_NewStdCartSchematron.sch:ERR #1A: The year mustbe 2020.</sch:assert>
-            <sch:assert test="contains(.,'08-25')">ISO_NewStdCartSchematron.sch:ERR #1B: The month must be 08 and the day must be 25.</sch:assert>
+            <sch:assert test="contains(.,'2021')">ISO_NewStdCartSchematron.sch:ERR #1A: The year mustbe 2020.</sch:assert>
+            <sch:assert test="contains(.,'03')">ISO_NewStdCartSchematron.sch:ERR #1B: The month must be 08 and the day must be 25.</sch:assert>
         </sch:rule>
     </sch:pattern>
     

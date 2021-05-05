@@ -216,6 +216,20 @@
             <sch:assert test="count(gmd:function)=1">NGDAChecksForNationalFiles.sch err#59: The function is missing for the WMS URL</sch:assert>
         </sch:rule>
      </sch:pattern> 
+    
+    
+    <!-- /gmi:MI_Metadata/gmd:distributionInfo[1]/gmd:MD_Distribution[1]/gmd:transferOptions[4]/gmd:MD_DigitalTransferOptions[1]/gmd:onLine[1]/gmd:CI_OnlineResource[1]/gmd:linkage[1]/gmd:URL[1] -->
+    
+    <sch:pattern id="EaUrlCheck">
+        <sch:rule context="/gmi:MI_Metadata/gmd:distributionInfo[1]/gmd:MD_Distribution[1]/gmd:transferOptions[4]/gmd:MD_DigitalTransferOptions[1]/gmd:onLine[1]/gmd:CI_OnlineResource[1]/gmd:linkage[1]/gmd:URL[1]">
+            <sch:let name="EAUrlCheck" value="string( contains(.,'https://meta.geo.census.gov/data/existing/decennial/GEO/GPMB/TIGERline/TIGER2020/'))"/>
+            <sch:assert test="$EAUrlCheck='true'">NGDAChecksForNationalFiles.sch #63A: The EA Url must contain 'https://meta.geo.census.gov/data/existing/decennial/GEO/GPMB/TIGERline/TIGER2020/'</sch:assert>
+        </sch:rule>
+    </sch:pattern>
+    
+    
+    
+  
       
     <sch:pattern id="EATitleCheck">
         <sch:rule context="/gmi:MI_Metadata/gmd:contentInfo[1]/gmd:MD_FeatureCatalogueDescription[1]/gmd:featureCatalogueCitation[1]/gmd:CI_Citation[1]/gmd:title[1]">
@@ -234,9 +248,11 @@
     <sch:pattern id="EAOtherCitationCheck">
         <sch:rule context="/gmi:MI_Metadata/gmd:contentInfo[1]/gmd:MD_FeatureCatalogueDescription[1]/gmd:featureCatalogueCitation[1]/gmd:CI_Citation[1]/gmd:otherCitationDetails[1]">
             <sch:let name="TLYear" value="string(contains(.,'tl_2020'))"/> 
-            <sch:let name="TLDir" value="string(contains(.,'Tiger2020'))"></sch:let>
+            <sch:let name="TLDir" value="string(contains(.,'TIGER2020'))"/>
+            <sch:let name="EAUrlCheckEA" value="string( contains(.,'https://meta.geo.census.gov/data/existing/decennial/GEO/GPMB/TIGERline/TIGER2020/'))"/>
             <sch:assert test="$TLYear='true'">NGDAChecksForNationalFiles.sch #64: The URL must contain 'tl_2020'.</sch:assert>
             <sch:assert test="$TLDir='true'">>NGDAChecksForNationalFiles.sch #65: The directory must be 'Tiger2020'</sch:assert>
+            <sch:assert test="$EAUrlCheckEA='true'">NGDAChecksForNationalFiles.sch #65B: The EA Url must contain 'https://meta.geo.census.gov/data/existing/decennial/GEO/GPMB/TIGERline/TIGER2020/'</sch:assert>
         </sch:rule>
     </sch:pattern>
     
@@ -341,6 +357,13 @@
     </sch:pattern>
      
     <!-- /gmi:MI_Metadata/gmd:dataSetURI[1]/gco:CharacterString[1] -->
+    <sch:pattern id='datasetURlCheck'>
+        <sch:rule context="/gmi:MI_Metadata/gmd:dataSetURI[1]">
+            <sch:assert  test="contains(.,'https')">NGDAChecksForNationalFiles.sch #88: The URL should contain 'https'</sch:assert>
+            <sch:assert test="contains(.,'https://www2.census.gov/geo/tiger/TIGER2020/')">NGDAChecksForNationalFiles.sch #89: The file's download URL should have 'https://www2.census.gov/geo/tiger/TIGER2020/'</sch:assert>
+            <sch:report test="contains(.,'http://')">NGDAChecksForNationalFiles.sch #90: There should not be a 'http://' in the dataset Url </sch:report>
+        </sch:rule>
+    </sch:pattern>
    
    <sch:pattern>
        <sch:rule context="/gmi:MI_Metadata/gmd:dataSetURI[1]">

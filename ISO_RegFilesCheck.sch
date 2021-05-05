@@ -69,13 +69,18 @@
     <!-- Checking the download file .-->
     <sch:pattern id="URLDownloadCheck">
         <sch:rule context="/gmi:MI_Metadata/gmd:distributionInfo[1]/gmd:MD_Distribution[1]/gmd:transferOptions[1]/gmd:MD_DigitalTransferOptions[1]/gmd:onLine[1]/gmd:CI_OnlineResource[1]">
-            <sch:assert test="count(gmd:linkage)=1">ISO_RegFilesCheck.sch err#13: The linkage URL for the download URL is missing.</sch:assert>
-            <sch:assert test="count(gmd:applicationProfile)=1">ISO_RegFilesCheck.sch err#14: The gmd:applicationProfile element for the download URL is missing. </sch:assert>
-            <sch:assert test="count(gmd:name)=1">ISO_RegFilesCheck.sch err#15: The gmd:name element for the download URL is missing. </sch:assert>
-            <sch:assert test="count(gmd:description)=1">ISO_RegFilesCheck.sch err#16: The gmd:description element for the download URL is missing.</sch:assert>
-            <sch:assert test="count(gmd:function)=1">ISO_RegFilesCheck.sch err#17: The gmd:function element for the download URL is missing.</sch:assert>
-            <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'https')">ISO_RegFilesCheck.sch err#18: The linkage for the download URL does not contains https</sch:assert>
-            <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'.zip')">ISO_RegFilesCheck.sch err#19: The download file for the download URL must contain '.zip'</sch:assert>
+            <sch:assert test="count(gmd:linkage)=1">ISO_RegStates.sch err#12: The linkage URL for the download URL is missing.</sch:assert>
+            <sch:assert test="count(gmd:applicationProfile)=1">ISO_RegStates.sch err#13: The gmd:applicationProfile element for the download URL is missing. </sch:assert>
+            <sch:assert test="count(gmd:name)=1">ISO_RegStates.sch err#14: The gmd:name element for the download URL is missing. </sch:assert>
+            <sch:assert test="count(gmd:description)=1">ISO_RegStates.sch err#15: The gmd:description element for the download URL is missing.</sch:assert>
+            <sch:assert test="count(gmd:function)=1">ISO_RegStates.sch err#16: The gmd:function element for the download URL is missing.</sch:assert>
+            <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'https')">ISO_RegStates.sch err#17: The linkage for the download URL does not contains https</sch:assert>
+            <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'.zip')">ISO_RegStates.sch err#18: The download file for the download URL must contain '.zip'</sch:assert>
+            <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'https://www2.census.gov/geo/tiger/TIGER2020PL/LAYER')">ISO_RegStates.sch err#18A: The file's download URL should have 'https://www2.census.gov/geo/tiger/TIGER2020PL/LAYER'</sch:assert>
+            <sch:report test="contains(./gmd:description[1],'C:/Users')">ISO_RegStates.sch err#18B: This should not contain "C:/Users" </sch:report>
+            <sch:let name="descriptionLength" value="string-length(./gmd:description[1]/gco:CharacterString[1])"/>
+            <sch:report test="$descriptionLength>1">ISO_RegStates.sch err#18C: The string lenght is  <sch:value-of select="$descriptionLength"/></sch:report>
+            <sch:report test="contains(./gmd:function[1]/gmd:CI_OnLineFunctionCode[1]/@codeListValue,'download!!')">ISO_RegStates.sch err#18C:  This attribute should not contain !!!</sch:report>
         </sch:rule>
     </sch:pattern>
     

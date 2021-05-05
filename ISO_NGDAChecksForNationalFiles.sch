@@ -152,6 +152,13 @@
         </sch:rule>
     </sch:pattern> 
     
+    <sch:pattern id='datasetURlCheck'>
+        <sch:rule context="/gmi:MI_Metadata/gmd:dataSetURI[1]">
+            <sch:assert  test="contains(.,'https')">ISO_NGDAChecksForNationalFiles.sch #48: The URL should contain 'https'</sch:assert>
+            <sch:assert test="contains(.,'https://www2.census.gov/geo/tiger/TIGER2020PL/LAYER')">The file's download URL should have 'https://www2.census.gov/geo/tiger/TIGER2020PL/LAYER'</sch:assert>
+            <sch:report test="contains(.,'http://')">ISO_RegStates.sch #48: There should not be a 'http://' in the dataset Url </sch:report>
+        </sch:rule>
+    </sch:pattern>
     <!--  <sch:pattern>
         <sch:rule context="/gmi:MI_Metadata/gmd:distributionInfo[1]/gmd:MD_Distribution[1]/gmd:transferOptions[4]/gmd:MD_DigitalTransferOptions[1]/gmd:onLine[1]/gmd:CI_OnlineResource[1]/gmd:applicationProfile[1]">
              <sch:assert test="ends-with(./gco:CharacterString[1],'.pdf')"></sch:assert>

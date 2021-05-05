@@ -108,6 +108,7 @@
         <sch:rule context="/gmi:MI_Metadata/gmd:distributionInfo[1]/gmd:MD_Distribution[1]/gmd:transferOptions[2]/gmd:MD_DigitalTransferOptions[1]/gmd:onLine[1]/gmd:CI_OnlineResource[1]">
             <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'https')">ISO_ChecksForStates.sch err#19: The TIGER shapefiles page is incorrect. It should be 'https://www.census.gov/geo/maps-data/data/tiger-line.html'</sch:assert>
             <sch:report test="contains(./gmd:name[1]/gco:CharacterString[1],'&#174;')">ISO_ChecksForStates.sch err#20: Remove the ® and replace it with &#174; !!!!!!!!</sch:report>
+            
         </sch:rule>
         
     </sch:pattern>
@@ -127,13 +128,18 @@
     <!-- Checking the download file .-->
     <sch:pattern id="URLDownloadCheck">
         <sch:rule context="/gmi:MI_Metadata/gmd:distributionInfo[1]/gmd:MD_Distribution[1]/gmd:transferOptions[1]/gmd:MD_DigitalTransferOptions[1]/gmd:onLine[1]/gmd:CI_OnlineResource[1]">
-            <sch:assert test="count(gmd:linkage)=1">ISO_ChecksForStates.sch err#25: The linkage URL for the download URL is missing.</sch:assert>
-            <sch:assert test="count(gmd:applicationProfile)=1">ISO_ChecksForStates.sch err#26: The gmd:applicationProfile element for the download URL is missing. </sch:assert>
-            <sch:assert test="count(gmd:name)=1">ISO_ChecksForStates.sch err#27: The gmd:name element for the download URL is missing. </sch:assert>
-            <sch:assert test="count(gmd:description)=1">ISO_ChecksForStates.sch err#28: The gmd:description element for the download URL is missing.</sch:assert>
-            <sch:assert test="count(gmd:function)=1">ISO_ChecksForStates.sch err#29: The gmd:function element for the download URL is missing.</sch:assert>
-            <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'https')">ISO_ChecksForStates.sch err#30: The linkage for the download URL does not contains https</sch:assert>
-            <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'.zip')">ISO_ChecksForStates.sch err#31: The download file for the download URL must contain '.zip'</sch:assert>
+            <sch:assert test="count(gmd:linkage)=1">ISO_RegStates.sch err#12: The linkage URL for the download URL is missing.</sch:assert>
+            <sch:assert test="count(gmd:applicationProfile)=1">ISO_RegStates.sch err#13: The gmd:applicationProfile element for the download URL is missing. </sch:assert>
+            <sch:assert test="count(gmd:name)=1">ISO_RegStates.sch err#14: The gmd:name element for the download URL is missing. </sch:assert>
+            <sch:assert test="count(gmd:description)=1">ISO_RegStates.sch err#15: The gmd:description element for the download URL is missing.</sch:assert>
+            <sch:assert test="count(gmd:function)=1">ISO_RegStates.sch err#16: The gmd:function element for the download URL is missing.</sch:assert>
+            <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'https')">ISO_RegStates.sch err#17: The linkage for the download URL does not contains https</sch:assert>
+            <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'.zip')">ISO_RegStates.sch err#18: The download file for the download URL must contain '.zip'</sch:assert>
+            <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'https://www2.census.gov/geo/tiger/TIGER2020PL/LAYER')">ISO_RegStates.sch err#18A: The file's download URL should have 'https://www2.census.gov/geo/tiger/TIGER2020PL/LAYER'</sch:assert>
+            <sch:report test="contains(./gmd:description[1],'C:/Users')">ISO_RegStates.sch err#18B: This should not contain "C:/Users" </sch:report>
+            <sch:let name="descriptionLength" value="string-length(./gmd:description[1]/gco:CharacterString[1])"/>
+            <sch:report test="$descriptionLength>1">ISO_RegStates.sch err#18C: The string lenght is  <sch:value-of select="$descriptionLength"/></sch:report>
+            <sch:report test="contains(./gmd:function[1]/gmd:CI_OnLineFunctionCode[1]/@codeListValue,'download!!')">ISO_RegStates.sch err#18C:  This attribute should not contain !!!</sch:report>
         </sch:rule>
     </sch:pattern>
     
@@ -187,9 +193,11 @@
     <sch:pattern id="EAOtherCitationCheck">
         <sch:rule context="/gmi:MI_Metadata/gmd:contentInfo[1]/gmd:MD_FeatureCatalogueDescription[1]/gmd:featureCatalogueCitation[1]/gmd:CI_Citation[1]/gmd:otherCitationDetails[1]">
             <sch:let name="TLYear" value="string(contains(.,'tl_2020'))"/> 
-            <sch:let name="TLDir" value="string(contains(.,'Tiger2020'))"></sch:let>
-            <sch:assert test="$TLYear='true'">ISO_ChecksForStates.sch #52: The URL must contain 'tl_2020'.</sch:assert>
-            <sch:assert test="$TLDir='true'">ISO_ChecksForStates.sch #53: The directory must be 'Tiger2020'</sch:assert>
+            <sch:let name="TLDir" value="string(contains(.,'TIGER2020'))"/>
+            <sch:let name="EAUrlCheckEA" value="string( contains(.,'https://meta.geo.census.gov/data/existing/decennial/GEO/GPMB/TIGERline/TIGER2020/'))"/>
+            <sch:assert test="$TLYear='true'">NGDAChecksForNationalFiles.sch #64: The URL must contain 'tl_2020'.</sch:assert>
+            <sch:assert test="$TLDir='true'">>NGDAChecksForNationalFiles.sch #65: The directory must be 'Tiger2020'</sch:assert>
+            <sch:assert test="$EAUrlCheckEA='true'">NGDAChecksForNationalFiles.sch #65B: The EA Url must contain 'https://meta.geo.census.gov/data/existing/decennial/GEO/GPMB/TIGERline/TIGER2020/'</sch:assert>
         </sch:rule>
     </sch:pattern>
     
@@ -300,5 +308,12 @@
            <sch:assert  test="contains(.,'https')">ISO_ChecksForStates.sch #77: The URL should contain 'https'</sch:assert>
        </sch:rule>
    </sch:pattern>
+    
+    <sch:pattern id="EaUrlCheck">
+        <sch:rule context="/gmi:MI_Metadata/gmd:distributionInfo[1]/gmd:MD_Distribution[1]/gmd:transferOptions[4]/gmd:MD_DigitalTransferOptions[1]/gmd:onLine[1]/gmd:CI_OnlineResource[1]/gmd:linkage[1]/gmd:URL[1]">
+            <sch:let name="EAUrlCheck" value="string( contains(.,'https://meta.geo.census.gov/data/existing/decennial/GEO/GPMB/TIGERline/TIGER2020/'))"/>
+            <sch:assert test="$EAUrlCheck='true'">NGDAChecksForNationalFiles.sch #63A: The EA Url must contain 'https://meta.geo.census.gov/data/existing/decennial/GEO/GPMB/TIGERline/TIGER2020/'</sch:assert>
+        </sch:rule>
+    </sch:pattern>
    
 </sch:schema>

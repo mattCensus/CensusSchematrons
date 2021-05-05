@@ -41,14 +41,23 @@
     
     <sch:pattern id='TitleConsistencyCheck'>
         <sch:rule context="/gmi:MI_Metadata/gmd:identificationInfo[1]/gmd:MD_DataIdentification[1]/gmd:citation[1]/gmd:CI_Citation">
-            <sch:let name="altTitle" value="./gmd:alternateTitle[2]"/>
-            <sch:let name="NGDATheme" value="normalize-space($altTitle)"/>
-            <sch:let name="NGDAThemeA" value="substring-after($NGDATheme,'(NGDA)')"/>
-            <sch:let name="MainTitle" value="./gmd:title[1]"/>
-            <sch:let name="YearTitle" value="./gmd:title[1]"></sch:let>
-            <sch:assert test="contains($MainTitle,$NGDAThemeA)">NGDAChecksForSeriesInfoFiles.sch err#2a:The title and the NGDA Theme(<sch:value-of select="$NGDAThemeA"/>) do not match</sch:assert>
-            <sch:assert test="contains($YearTitle,$NGDAThemeA)">NGDAChecksForSeriesInfoFiles.sch err#2a:The first alternate title and the NGDA Theme (<sch:value-of select="$NGDAThemeA"/>) do not match</sch:assert>
-           <!--   <sch:report test="contains($MainTitle,$NGDAThemeA)">(<sch:value-of select="$NGDAThemeA"/>) is the main title</sch:report>-->
+            <sch:let name="MainTitle" value="substring-after(./gmd:title[1],'for the')"/>  
+            
+            <sch:let name="altTitleOne" value="./gmd:alternateTitle[1]"/>
+            <sch:let name="NGDAThemeTwo" value="normalize-space($altTitleOne)"/>
+            <sch:let name="NGDAThemeA" value="substring-after($NGDAThemeTwo,'(Census)')"/>
+            
+            <sch:let name="altTitleTwo" value="./gmd:alternateTitle[2]"/>
+            <sch:let name="NGDAThemeTwo" value="normalize-space($altTitleTwo)"/>
+            <sch:let name="NGDAThemeB" value="substring-after($NGDAThemeTwo,'(NGDA)')"/>
+            
+            <sch:let name="YearTitle" value="string(contains(./gmd:title[1],'Current'))"/>
+            
+            <sch:assert test="$YearTitle='true'">NGDAChecksForNationalFiles.sch #2a: The title name must contain 'Current'.</sch:assert>
+            
+            <sch:assert test="contains($MainTitle,$NGDAThemeA)">NGDAChecksForSeriesInfoFiles.sch err#2b:The first alternate title <sch:value-of select="$MainTitle"/> and the NGDA Theme (<sch:value-of select="$NGDAThemeA"/>) do not match</sch:assert>
+            <sch:assert test="contains($MainTitle,$NGDAThemeB)">NGDAChecksForSeriesInfoFiles.sch err#2c:The Main title (<sch:value-of select="$MainTitle"/>) and the NGDA Theme in the second alternate title (<sch:value-of select="$NGDAThemeA"/>) do not match</sch:assert>
+            <!--   <sch:report test="contains($MainTitle,$NGDAThemeA)">(<sch:value-of select="$NGDAThemeA"/>) is the main title</sch:report> Census  for the-->
         </sch:rule>
     </sch:pattern>
     

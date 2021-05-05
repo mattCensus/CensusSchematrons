@@ -10,6 +10,12 @@
     <sch:ns uri="http://www.opengis.net/gml/3.2" prefix="gml"/>
     
    <!-- checking to make sure that the codelist value and characterset are correct -->
+    <sch:pattern id="altTitleCount">
+        <sch:rule context="gmi:MI_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation">
+            <sch:assert test="count(gmd:alternateTitle)=0"> ISO_RegStates.sch err#0: There should be no alternate titles</sch:assert>
+            <!-- checking to make sure that the codelist value and characterset are correct -->
+        </sch:rule>
+    </sch:pattern>
     
     <sch:pattern id="charactersetCheck">
         <sch:rule context="/gmi:MI_Metadata/gmd:characterSet[1]/gmd:MD_CharacterSetCode[1]">

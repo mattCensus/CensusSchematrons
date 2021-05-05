@@ -13,6 +13,7 @@
     <sch:pattern id="charactersetCheck">
         <sch:rule context="/gmi:MI_Metadata/gmd:characterSet[1]/gmd:MD_CharacterSetCode[1]">
             <sch:assert test="contains(./@codeListValue,'UTF-8')">The codelist value must be equal to 'UTF-8'</sch:assert>
+            <sch:assert test="contains(./@codeSpace,'004')">The codespace value for gmd:MD_CharacterSetCode must be '004' </sch:assert>
         </sch:rule>
     </sch:pattern>
     
@@ -45,7 +46,6 @@
     <sch:pattern>
         <sch:rule context="/gmi:MI_Metadata/gmd:distributionInfo[1]/gmd:MD_Distribution[1]/gmd:transferOptions[1]/gmd:MD_DigitalTransferOptions[1]/gmd:onLine[1]/gmd:CI_OnlineResource[1]">
             <sch:report test="contains(./gmd:linkage[1]/gmd:URL[1],'.zip')">There should not be a zip file for the download</sch:report>
-            <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'https://www2.census.gov/geo/tiger/TIGER2020PL/LAYER')">The file's download URL should have 'https://www2.census.gov/geo/tiger/TIGER2020PL/LAYER'</sch:assert>
             <!--  <sch:assert test="contains(./gmd:linkage[1]/gmd:URL[1],'.zip')">
                 The download file should contain '.zip'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             </sch:assert>-->
